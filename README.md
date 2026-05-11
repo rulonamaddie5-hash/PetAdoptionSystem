@@ -40,32 +40,6 @@ A Java console-based Pet Adoption Manangement System developed for a school proj
 - Arrays
 - Enums
 
-# Project Structure
-
-PetAdoption/
-    |
-    | ---src/
-    |    |---petadooptionsystem/
-    |       |---PetAdoptionSystem.java
-
-
-     
-PetAdoption/
-|
-|--= src/
-│   |--- petadoptionsystem/
-│       |--- PetAdoptionSystem2.java
-│
-|---  data/
-│   |--- users.txt
-│   |--- data.txt
-│   |--- loginHistory.txt
-│   |--- adoptionHistory.txt
-│   |--- adopterList.txt
-│   |--- userChangesHistory.txt
-│
-|--- README.md
-
 # How to Run
 1. Open the Project in Netbeans
 2. Make sure the data folder exists in the project root
