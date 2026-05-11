@@ -48,14 +48,14 @@ A Java console-based Pet Adoption Manangement System developed for a school proj
 
 # Default Login Credentials
 ## Admin
-User ID: 001
-Username: Admin
-Password: Admin123
+- User ID: 001
+- Username: admin
+- Password: admin123
 
 ## Staff
-User ID: 002
-Username: Staff
-Password: Staff123
+- User ID: 002
+- Username: staff
+- Password: staff123
 
 # Notes
 - This project uses relative file paths: data/users.txt
