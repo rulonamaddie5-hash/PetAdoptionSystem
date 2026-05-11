@@ -41,6 +41,15 @@ A Java console-based Pet Adoption Manangement System developed for a school proj
 - Enums
 
 # Project Structure
+
+PetAdoption/
+    |
+    | ---src/
+    |    |---petadooptionsystem/
+    |       |---PetAdoptionSystem.java
+
+
+     
 PetAdoption/
 |
 |--= src/
