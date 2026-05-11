@@ -1,0 +1,38 @@
+001,Buddy,2 years,DOG,Aspin,Male,AVAILABLE
+002,Luna,8 months,CAT,Siamese,Female,ADOPTED
+003,Max,3 years,DOG,Labrador,Male,AVAILABLE
+004,Bella,2 years,CAT,Persian,Female,AVAILABLE
+005,Charlie,10 months,DOG,Beagle,Male,ADOPTED
+006,Lucy,4 years,CAT,Unknown,Female,AVAILABLE
+007,Rocky,5 years,DOG,Bulldog,Male,AVAILABLE
+008,Daisy,1 year,RABBIT,Unknown,Female,AVAILABLE
+009,Milo,6 months,CAT,Tabby,Male,ADOPTED
+010,Coco,3 years,BIRD,Parakeet,Female,AVAILABLE
+011,Toby,2 years,DOG,Poodle,Male,AVAILABLE
+012,Nala,5 months,CAT,Unknown,Female,AVAILABLE
+013,Simba,2 years,CAT,Unknown,Male,ADOPTED
+014,Jack,4 years,DOG,Aspin,Male,AVAILABLE
+015,Lola,3 years,DOG,Shih Tzu,Female,AVAILABLE
+016,Zeus,5 years,DOG,German Shepherd,Male,ADOPTED
+017,Chloe,2 years,CAT,Calico,Female,AVAILABLE
+018,Buster,7 months,DOG,Unknown,Male,AVAILABLE
+019,Pepper,2 years,BIRD,Lovebird,Female,AVAILABLE
+020,Shadow,3 years,CAT,Black Shorthair,Male,ADOPTED
+021,Ginger,1 year,CAT,Orange Tabby,Female,AVAILABLE
+022,Rex,4 years,DOG,Doberman,Male,AVAILABLE
+023,Mocha,9 months,RABBIT,Unknown,Female,AVAILABLE
+024,Oreo,1 year,HAMSTER,Unknown,Male,AVAILABLE
+025,Bailey,3 years,DOG,Golden Retriever,Female,ADOPTED
+026,Zoe,6 months,CAT,uUnknown,Female,AVAILABLE
+027,Bruno,2 years,DOG,Rottweiler,Male,AVAILABLE
+028,Kiwi,8 months,BIRD,Parrot,Female,AVAILABLE
+029,Tiger,3 years,CAT,Unknown,Male,ADOPTED
+030,Ruby,2 years,DOG,Aspin,Female,AVAILABLE
+031,Spike,4 years,DOG,Unknown,Male,AVAILABLE
+032,Lily,10 months,CAT,Persian,Female,AVAILABLE
+033,Thor,3 years,DOG,Husky,Male,ADOPTED
+034,Angel,1 year,CAT,Unknown,Female,AVAILABLE
+035,Blue,5 months,BIRD,Unknown,Male,AVAILABLE
+036,Snowy,2 years,RABBIT,Unknown,Female,AVAILABLE
+037,Princess,3 years,CAT,Unknown,Female,ADOPTED
+038,Scout,2 years,DOG,Unknown,Male,AVAILABLE
