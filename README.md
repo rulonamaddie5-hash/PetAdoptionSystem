@@ -42,20 +42,20 @@ A Java console-based Pet Adoption Manangement System developed for a school proj
 
 # Project Structure
 PetAdoption/
+|
+|--= src/
+│   |--- petadoptionsystem/
+│       |--- PetAdoptionSystem2.java
 │
-├── src/
-│   └── petadoptionsystem/
-│       └── PetAdoptionSystem2.java
+|---  data/
+│   |--- users.txt
+│   |--- data.txt
+│   |--- loginHistory.txt
+│   |--- adoptionHistory.txt
+│   |--- adopterList.txt
+│   |--- userChangesHistory.txt
 │
-├── data/
-│   ├── users.txt
-│   ├── data.txt
-│   ├── loginHistory.txt
-│   ├── adoptionHistory.txt
-│   ├── adopterList.txt
-│   └── userChangesHistory.txt
-│
-└── README.md
+|--- README.md
 
 # How to Run
 1. Open the Project in Netbeans
