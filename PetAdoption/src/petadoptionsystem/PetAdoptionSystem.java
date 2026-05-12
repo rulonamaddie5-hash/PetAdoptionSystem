@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package petadoptionsystem;
 
 /**
@@ -103,6 +99,8 @@ public class PetAdoptionSystem {
                 saveData();
             }
         }
+        //close scanner after closing program
+        input.close();
     }
 
     //==============================================================================
@@ -277,9 +275,8 @@ public class PetAdoptionSystem {
             //split the line into parts and store it in dataParts array using "," as delimeter
             String[] dataParts = currentLine.split(",");
 
-            //user data format is (id,username,pass,role)
-            //so if parts length is 4,
-            //assign each dataParts index to user arrays
+            //user data format
+            //id,username,password,role
             if (dataParts.length == 4) {
 
                 userID[userCount] = dataParts[0];
@@ -291,13 +288,20 @@ public class PetAdoptionSystem {
         }
     }
 
+    //reads pet data file and stores information into pet arrays
     static void loadData() throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new FileReader(dataFilePath));
 
         String currentLine;
+
+        //continue reading while there are still lines and pet array is not full
         while ((currentLine = reader.readLine()) != null && petCount < MAX_PETS) {
+
+            //split line using comma delimiter
             String[] dataParts = currentLine.split(",");
 
+            //pet data format:
+            //(id,name,age,type,breed,sex,status)
             if (dataParts.length == 7) {
 
                 petID[petCount] = dataParts[0];
@@ -370,11 +374,16 @@ public class PetAdoptionSystem {
             System.out.println("\nError Saving to History\n");
             return;
         }
-        System.out.println("\nChanges has been Saved to History\n");
+        System.out.println("\nChanges have been Saved to History\n");
     }
 
     static void saveData() {
+
+        //FileWriter without 'true' overwrites the old file
+        //overwrite existing pet data file with updated pet list
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath))) {
+
+            //write each pet record line by line
             for (int i = 0; i < petCount; i++) {
                 writer.write(petID[i] + ","
                         + petName[i] + ","
@@ -395,9 +404,11 @@ public class PetAdoptionSystem {
     //=============================================================================
     //============================ENCRYPT AND DECRYPT==============================
     //=============================================================================
+    //uses Caesar Cipher encryption with shift value of 3
     static String encrypt(String text) {
         StringBuilder result = new StringBuilder();
 
+        //shift uppercase letters by 3 characters
         for (char c : text.toCharArray()) {
             if (Character.isUpperCase(c)) {
                 char ch = (char) ((c - 'A' + 3) % 26 + 'A');
@@ -415,6 +426,7 @@ public class PetAdoptionSystem {
     static String decrypt(String text) {
         StringBuilder result = new StringBuilder();
 
+        //shift lowercase letters backwards by 3 characters
         for (char c : text.toCharArray()) {
             if (Character.isUpperCase(c)) {
                 char ch = (char) ((c - 'A' - 3 + 26) % 26 + 'A');
@@ -433,14 +445,20 @@ public class PetAdoptionSystem {
     //==============================PROGRAM FLOW===================================
     //=============================================================================
     static void runProgram(Role role) {
+        //only continue if login was successful
         if (isLoggedIn) {
             System.out.println("\nYou successfully logged in\n");
         }
 
+        //continue showing menu until the user logs out
         while (isLoggedIn) {
+
+            //show menu based on user role
+            //and get menu option from user
             showMenu(role);
             int menuChoice = getUserInput();
 
+            //admin and staff have different command handlers
             if (role == Role.ADMIN) {
                 handleAdminCommands(menuChoice);
 
@@ -497,6 +515,7 @@ public class PetAdoptionSystem {
 
     static void handleAdminCommands(int choice) {
         switch (choice) {
+            //pet management methods
             case 1:
                 addNewPet();
                 break;
@@ -534,6 +553,7 @@ public class PetAdoptionSystem {
                 adoptPet();
                 break;
 
+            //history viewing methods
             case 9:
                 viewRecentAdoptionList();
                 break;
@@ -611,11 +631,13 @@ public class PetAdoptionSystem {
     //================================PET MANAGEMENT==================================
     //================================================================================
     static void addNewPet() {
+        //if the list is full, prompt maximum amount message and return to menu
         if (petListIsFull()) {
-            System.out.println("\nMax Amount of Pets Reached\n");
+            System.out.println("\nMaximum Amount of Pets Reached\n");
             return;
         }
 
+        //get new pet details
         String id = inputPetID();
         String name = inputPetName();
         String age = inputPetAge();
@@ -623,6 +645,7 @@ public class PetAdoptionSystem {
         String breed = inputPetBreed();
         String sex = inputPetSex();
 
+        //find first empty slot in arrays
         for (int i = 0; i < MAX_PETS; i++) {
             if (petName[i] == null) {
                 petID[i] = id;
@@ -631,10 +654,15 @@ public class PetAdoptionSystem {
                 petType[i] = type;
                 petBreed[i] = breed;
                 petSex[i] = sex;
+
+                //new pets are automatically marked as available
                 petStatus[i] = Status.AVAILABLE;
+
+                //number of pets increments by 1
                 petCount++;
                 System.out.println("\nAdded New Pet to System\n");
-                
+
+                //record changes
                 saveUserChanges("Added a new pet", idOfCurrentUser);
                 hasChanges = true;
                 return;
@@ -643,11 +671,13 @@ public class PetAdoptionSystem {
     }
 
     static void viewAllPets() {
+        //is list is empty, prompt empty message and return to menu
         if (petListIsEmpty()) {
             System.out.println("\nPet List is Empty\n");
             return;
         }
 
+        //display pet list in table format
         System.out.printf("%-6s%-15s%-15s%-15s%-25s%-10s%s%n", "ID:", "Name:", "Age:", "Type:", "Breed:", "Sex:", "Status:");
         System.out.println("------------------------------------------------------------------------------------------------");
 
@@ -663,6 +693,7 @@ public class PetAdoptionSystem {
     }
 
     static void searchPetByID(String id) {
+        //loop through pet list to find matching ID
         for (int i = 0; i < petCount; i++) {
             if (petID[i].equals(id)) {
                 System.out.println("\n===PET FOUND===\n");
@@ -729,30 +760,30 @@ public class PetAdoptionSystem {
         }
 
         //removing pet from system logic:
-        //we remove target index by replacing it with the next element ([index] becomes [index + 1])
+        //we remove target index by replacing it with the next element (index[i] becomes [i+1)
         {
             for (int i = index; i < petCount - 1; i++) {
-                petID[index] = petID[index + 1];
-                petName[index] = petName[index + 1];
-                petAge[index] = petAge[index + 1];
-                petType[index] = petType[index + 1];
-                petBreed[index] = petBreed[index + 1];
-                petSex[index] = petSex[index + 1];
-                petStatus[index] = petStatus[index + 1];
+                petID[i] = petID[i + 1];
+                petName[i] = petName[i + 1];
+                petAge[i] = petAge[i + 1];
+                petType[i] = petType[i + 1];
+                petBreed[i] = petBreed[i + 1];
+                petSex[i] = petSex[i + 1];
+                petStatus[i] = petStatus[i + 1];
             }
         }
 
         //last element gets duplicated,
         //set last element to null and reduce petCount by 1
-        petID[petCount] = null;
-        petName[petCount] = null;
-        petAge[petCount] = null;
-        petType[petCount] = null;
-        petBreed[petCount] = null;
-        petSex[petCount] = null;
-        petStatus[petCount] = null;
+        petID[petCount - 1] = null;
+        petName[petCount - 1] = null;
+        petAge[petCount - 1] = null;
+        petType[petCount - 1] = null;
+        petBreed[petCount - 1] = null;
+        petSex[petCount - 1] = null;
+        petStatus[petCount - 1] = null;
         petCount--;
-        System.out.println("\nPet Has Been Removed From The System\n");
+        System.out.println("\nPet Has Been Removed from the System\n");
 
         saveUserChanges("Removed a Pet from System", idOfCurrentUser);
         hasChanges = true;
@@ -773,6 +804,7 @@ public class PetAdoptionSystem {
     //============================ADOPTION METHODS=====================================
     //=================================================================================
     static void adoptPet() {
+        //adoption menu keeps running until user selects back
         while (true) {
             showAdoptPetMenu();
             int menuChoice = getUserInput();
@@ -782,6 +814,8 @@ public class PetAdoptionSystem {
             switch (menuChoice) {
                 case 1:
                     enteredPetID = prompt("Enter Pet ID to Adopt");
+
+                    //validate if pet exists and is still available
                     if (!validatePetForAdoption(enteredPetID)) {
                         System.out.println("\nEntered Pet ID is not Valid for Adoption\n");
                         continue;
@@ -867,15 +901,6 @@ public class PetAdoptionSystem {
         saveAdoptionRecord(petIndex, adopterName, adopterAddress, adopterContact, adoptionDate);
     }
 
-    static void updatePetStatus(int index) {
-        if (petStatus[index] == Status.AVAILABLE) {
-
-            petStatus[index] = Status.ADOPTED;
-        } else {
-            petStatus[index] = Status.AVAILABLE;
-        }
-    }
-
     //===================================================================================
     //=============================DISPLAY AND VIEW METHODS==============================
     //===================================================================================
@@ -920,10 +945,13 @@ public class PetAdoptionSystem {
 
     static void viewByPetType(PetType type) {
 
+        //show only pets that match the selected type and are available
         System.out.println("\nAvailable: " + type);
         System.out.println("--------------------------------------------------------------------");
         System.out.printf("%-6s%-15s%-15s%-25s%s%n", "ID:", "Name:", "Age:", "Breed:", "Sex:");
         System.out.println("--------------------------------------------------------------------");
+        
+        //display pets in table format filtered by type and availability
         for (int i = 0; i < petCount; i++) {
             if (type == petType[i] && petStatus[i] == Status.AVAILABLE) {
                 System.out.printf("%-6s", petID[i]);
@@ -959,6 +987,8 @@ public class PetAdoptionSystem {
     static void viewAllUsers() {
         System.out.println("\n===Users in Pet Adoption System===\n");
 
+        //views all users in the system
+        //shows their credentials in a table format with encrypted passwords
         System.out.printf("%-10s%-20s%-25s%s%n", "User ID:", "Username:", "Password:", "Role:");
         System.out.println("-------------------------------------------------------------");
 
@@ -1129,7 +1159,8 @@ public class PetAdoptionSystem {
                 continue;
             }
 
-            //if age is greater than 1, add letter s to month and year
+            //determine whether to display Month/Months or Year/Years
+            //depending on the entered age value
             switch (choice) {
                 case 1:
                     if (petAge > 1) {
@@ -1159,6 +1190,7 @@ public class PetAdoptionSystem {
 
             int choice = getUserInput();
 
+            //convert user menu choice into PetType enum
             switch (choice) {
                 case 1:
                     return PetType.DOG;
@@ -1196,6 +1228,7 @@ public class PetAdoptionSystem {
     }
 
     static String inputPetDetail(String detailType) {
+        //handles shared validation logic for pet name, breed, and sex
         while (true) {
             System.out.print("Enter Pet " + detailType + ": ");
             String detail = input.nextLine();
@@ -1334,6 +1367,7 @@ public class PetAdoptionSystem {
     }
 
     static String updatePetDetail(String detailType, String currentDetail) {
+        //handles shared validation logic for pet name, breed, and sex
         while (true) {
             //show the current detail
             System.out.print("Update Pet " + detailType + ": (Current: " + currentDetail + "): ");
@@ -1343,7 +1377,7 @@ public class PetAdoptionSystem {
             if (newDetail.isEmpty()) {
                 return currentDetail;
             }
-            
+
             //if pet detail type is sex, validate and return pet sex
             if (detailType.equalsIgnoreCase("sex")) {
                 if (!validatePetSex(newDetail)) {
@@ -1361,7 +1395,17 @@ public class PetAdoptionSystem {
             }
             return newDetail;
         }
+    }
 
+    static void updatePetStatus(int index) {
+        //switch pet status between AVAILABLE and ADOPTED
+        //used during adoption process
+        if (petStatus[index] == Status.AVAILABLE) {
+
+            petStatus[index] = Status.ADOPTED;
+        } else {
+            petStatus[index] = Status.AVAILABLE;
+        }
     }
 
     //==============================================================================
@@ -1379,8 +1423,8 @@ public class PetAdoptionSystem {
         return inputAdopterDetail("Contact");
     }
 
-    //stores logic for adopter name, address and contact input
     static String inputAdopterDetail(String detailType) {
+        //handles adopter input validation depending on detail type
         while (true) {
             System.out.print("Enter Adopter's " + detailType + ": ");
             String detail = input.nextLine().trim();
@@ -1443,6 +1487,8 @@ public class PetAdoptionSystem {
     static int countPetByStatus(Status status) {
         int count = 0;
 
+        //counts pets depending on their adoption status
+        //reusable counting method for AVAILABLE and ADOPTED pets
         for (int i = 0; i < petCount; i++) {
             if (petStatus[i] == status) {
                 count++;
@@ -1457,6 +1503,7 @@ public class PetAdoptionSystem {
     }
 
     static boolean confirmAction(String message) {
+        //keep asking until user enters only y or n
         while (true) {
             System.out.print(message + " (y/n): ");
             String response = input.nextLine().toLowerCase().trim();
@@ -1476,14 +1523,18 @@ public class PetAdoptionSystem {
     }
 
     static int getIndex(String[] array, int count, String id) {
+        //default value if no matching ID is found
         int index = -1;
 
+        //search array for matching ID and return its index
         for (int i = 0; i < count; i++) {
+            //return the current position once match is found
             if (array[i].equals(id)) {
                 index = i;
                 break;
             }
         }
+        //returns -1 if ID is not found
         return index;
     }
 
@@ -1497,7 +1548,8 @@ public class PetAdoptionSystem {
 
     static boolean addLineToFile(String filePath, String text) {
 
-        //accepts a text or record and appends to file
+        //FileWriter(filePath, true) enables append mode
+        //new records are added without overwriting existing file contents
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
 
             writer.write(text + "\n");
@@ -1512,6 +1564,7 @@ public class PetAdoptionSystem {
     //============================VALIDATION METHODS=================================
     //===============================================================================
     static boolean validateInput(String input, String regex) {
+        //regex validator reused across multiple input methods
         return input.matches(regex);
     }
 
@@ -1519,7 +1572,7 @@ public class PetAdoptionSystem {
 
         int numericID = Integer.parseInt(id);
         if (numericID <= 0) {
-            System.out.println("\nInvalid: ID Cannot Zero Or Negative\n");
+            System.out.println("\nInvalid: ID Cannot Zero or Negative\n");
             return false;
         }
 
@@ -1533,7 +1586,7 @@ public class PetAdoptionSystem {
 
     static boolean validatePetAge(int age) {
         if (age <= 0) {
-            System.out.println("\nInvalid: Age Cannot Be Negative\n");
+            System.out.println("\nInvalid: Age Cannot Be Negative or Zero\n");
             return false;
         }
 
@@ -1545,6 +1598,9 @@ public class PetAdoptionSystem {
     }
 
     static boolean validatePetForAdoption(String id) {
+        //pet can only be adopted if:
+        //1. the ID exists
+        //2. the pet is still AVAILABLE
         for (int i = 0; i < petCount; i++) {
             if (petID[i].equals(id) && isAvailable(i)) {
                 return true;
@@ -1559,7 +1615,7 @@ public class PetAdoptionSystem {
     }
 
     static boolean validateAdopterAddress(String address) {
-        //address must only be letters, numbers, period, commas, and spaces
+        //address must only be 1,letters, numbers, period, commas, and spaces
         return validateInput(address, "[A-Za-z0-9.,\\s]+");
     }
 
@@ -1567,4 +1623,5 @@ public class PetAdoptionSystem {
         //contact must start with 09 and contain 11 digits
         return validateInput(contact, "09\\d{9}");
     }
+}
 }
