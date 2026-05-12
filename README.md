@@ -46,17 +46,6 @@ A Java console-based Pet Adoption Manangement System developed for a school proj
 3. Ensure all .txt files are inside the data folder
 4. Run PetAdoptionSystem.java
 
-# Default Login Credentials
-## Admin
-- User ID: 001
-- Username: admin
-- Password: admin123
-
-## Staff
-- User ID: 002
-- Username: staff
-- Password: staff123
-
 # Notes
 - This project uses relative file paths: data/users.txt
 - All records are stored locally in text files
