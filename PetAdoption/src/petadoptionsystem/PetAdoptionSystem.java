@@ -591,7 +591,7 @@ public class PetAdoptionSystem {
                 break;
 
             case 2:
-                String id = inputPetID();
+                String id = prompt("Enter Pet ID to Search");
                 searchPetByID(id);
                 break;
 
