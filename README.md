@@ -47,9 +47,9 @@ A Java console-based Pet Adoption Manangement System developed for a school proj
 4. Run PetAdoptionSystem.java
 
 # Sample Credentials
-User ID: 001
-Username: Kelvin
-Password: pMethod*31
+- User ID: 001
+- Username: Kelvin
+- Password: pMethod*31
 
 # Notes
 - This project uses relative file paths: data/users.txt
