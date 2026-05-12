@@ -1,2 +1,3 @@
-001,admin,dgplq123,ADMIN
-002,staff,vwdii123,STAFF
+001,Kelvin,sPhwkrg31,ADMIN
+002,Maddie,sxeolfFodvvvv99,ADMIN
+003,Marc,iruOrrsVhwv1,STAFF
