@@ -145,24 +145,6 @@ public class PetAdoptionSystem {
         }
     }
 
-    static void loginChoiceHandler(int loginChoice) {
-        switch (loginChoice) {
-
-            //calls the login method based on the chosen role,
-            //then returns a boolean value to isLoggedIn varialbe
-            //if login returns false, then method runProgram() will not run
-            case 1:
-                isLoggedIn = login(Role.ADMIN);
-                break;
-            case 2:
-                isLoggedIn = login(Role.STAFF);
-                break;
-            case 0:
-                System.out.println("\nYou Exited the Program\n");
-                break;
-        }
-    }
-
     static boolean login(Role role) {
         //get user credentials
         String userID = inputUserID();
@@ -187,9 +169,11 @@ public class PetAdoptionSystem {
                 continue;
             }
 
-            boolean correctID = id.equals(userID[i]);
-            boolean correctUsername = name.equals(username[i]);
-            boolean correctPassword = pass.equals(password[i]);
+            int userIndex = i;
+
+            boolean correctID = id.equals(userID[userIndex]);
+            boolean correctUsername = name.equals(username[userIndex]);
+            boolean correctPassword = pass.equals(password[userIndex]);
 
             if (correctID && correctUsername && correctPassword) {
                 idOfCurrentUser = id;
@@ -200,6 +184,24 @@ public class PetAdoptionSystem {
 
         }
         return false;
+    }
+
+     static void loginChoiceHandler(int loginChoice) {
+        switch (loginChoice) {
+
+            //calls the login method based on the chosen role,
+            //then returns a boolean value to isLoggedIn varialbe
+            //if login returns false, then method runProgram() will not run
+            case 1:
+                isLoggedIn = login(Role.ADMIN);
+                break;
+            case 2:
+                isLoggedIn = login(Role.STAFF);
+                break;
+            case 0:
+                System.out.println("\nYou Exited the Program\n");
+                break;
+        }
     }
 
     static Role getRole(int loginChoice) {
